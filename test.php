@@ -1,0 +1,1 @@
+<?php echo $_GET['callback']."('Can we add a new asyncLink tag or other tag do this?')" ?>

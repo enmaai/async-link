@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="gbk">
+	<title>ajax link demo</title>
+	<script src="http://a.tbcdn.cn/s/yui/3.3.0/build/yui/yui-min.js"></script>
+	<style>
+		div{border:1px solid #f60;border-radius: 5px;margin: 10px;padding: 10px;width: 400px;}
+		a{display: block;background: #066777;width: 400px;margin: 10px;color:#fff;}
+	</style>
+</head>
+<body>
+	<a href="http://www.taobao.com" target="_blank">simple link</a>
+	<a href="test.php" ajax="true" target="#test" place="replace">async link which replaces target</a>
+	<a href="test.php" ajax="true" target="#test" place="first" history="true">async link fetchs content and inserts target as first child</a>
+	<a href="test.php" ajax="true" target="#test" place="last">async link fetchs content and inserts target as last child</a>
+
+	<div id="test">this is div#test</div>
+	<script>
+		YUI().use('node-base','event-base','jsonp','history',function(Y){
+			var hash = new Y.HistoryHash({
+				initialState : {
+					init : 0
+				}
+			}),
+			hashInit = 0;
+			Y.all('a').on('click',function(e){
+			   	var tar = e.target,
+					aim = tar.get('target'),
+					url = tar.get('href'),
+					place = tar.getAttribute('place'),
+					addHistory = tar.getAttribute('history');
+				if(tar.getAttribute('ajax')){
+					e.halt();
+				}
+				Y.jsonp(url+'?callback={callback}',function(response){
+					if(place == 'first'){
+						Y.all(aim).prepend('<p style="border:1px solid '+randomColor()+'">'+response+'</p>');
+					}else if(place == 'last'){
+						Y.all(aim).append('<p style="border:1px solid '+randomColor()+'">'+response+'</p>');
+					}else{
+						Y.all(aim).setContent('<p style="border:1px solid '+randomColor()+'">'+response+'</p>');
+					}
+
+					if(addHistory){
+						hash.addValue('asyncHistory',hashInit++);
+					}
+				});
+			});
+			Y.one('window').on('unload',function(){
+				hash.replaceHash('load=0');
+			});
+
+			function randomColor(){
+				return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).substr(-6);
+			}
+		});
+	</script>
+</body>
+</html>
