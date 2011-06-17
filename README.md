@@ -1,5 +1,5 @@
 This is a AsyncLink demo,We implement it use JavaScript now.
-How about browser implements this? Use a new <async> tag or modify <a> tag?
+How about browser implements this? Use a new '<async>' tag or modify '<a>' tag?
 
 
     <a href="json.php" target="#foo" async="true" history="true" where="replace">asynclink</a>
