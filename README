@@ -6,6 +6,7 @@ How about browser implements this? Use a new <async> tag or modify <a> tag?
 <async url="json.php" target="#foo" history="true" where="replace">asynclink</async>
 </code></pre>
 
+
 target represents html dom
 async represents this is a async link
 history represents browser will add a historyhash for this asynclink
