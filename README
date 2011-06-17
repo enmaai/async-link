@@ -1,10 +1,10 @@
 This is a AsyncLink demo,We implement it use JavaScript now.
 How about browser implements this? Use a new <async> tag or modify <a> tag?
 
-<pre><code>
-<a href="json.php" target="#foo" async="true" history="true" where="replace">asynclink</a>
-<async url="json.php" target="#foo" history="true" where="replace">asynclink</async>
-</code></pre>
+
+    <a href="json.php" target="#foo" async="true" history="true" where="replace">asynclink</a>
+    <async url="json.php" target="#foo" history="true" where="replace">asynclink</async>
+
 
 target represents html dom
 async represents this is a async link
