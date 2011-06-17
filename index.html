@@ -11,13 +11,14 @@
 </head>
 <body>
 	<a href="http://www.taobao.com" target="_blank">simple link</a>
-	<a href="test.php" ajax="true" target="#test" place="replace">async link which replaces target</a>
-	<a href="test.php" ajax="true" target="#test" place="first" history="true">async link fetchs content and inserts target as first child</a>
-	<a href="test.php" ajax="true" target="#test" place="last">async link fetchs content and inserts target as last child</a>
+	<a href="test.js" ajax="true" target="#test" place="replace">async link which replaces target</a>
+	<a href="test.js" ajax="true" target="#test" place="first" history="true">async link fetchs content and inserts target as first child</a>
+	<a href="test.js" ajax="true" target="#test" place="last">async link fetchs content and inserts target as last child</a>
 
 	<div id="test">this is div#test</div>
 	<script>
-		YUI().use('node-base','event-base','jsonp','history',function(Y){
+		var c ;
+		YUI().use('node-base','event-base','get','history',function(Y){
 			var hash = new Y.HistoryHash({
 				initialState : {
 					init : 0
@@ -30,10 +31,8 @@
 					url = tar.get('href'),
 					place = tar.getAttribute('place'),
 					addHistory = tar.getAttribute('history');
-				if(tar.getAttribute('ajax')){
-					e.halt();
-				}
-				Y.jsonp(url+'?callback={callback}',function(response){
+
+				c = function(response){
 					if(place == 'first'){
 						Y.all(aim).prepend('<p style="border:1px solid '+randomColor()+'">'+response+'</p>');
 					}else if(place == 'last'){
@@ -45,7 +44,11 @@
 					if(addHistory){
 						hash.addValue('asyncHistory',hashInit++);
 					}
-				});
+				};
+				if(tar.getAttribute('ajax')){
+					e.halt();
+				}
+				Y.Get.script(url);
 			});
 			Y.one('window').on('unload',function(){
 				hash.replaceHash('load=0');
