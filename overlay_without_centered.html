@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="gbk">
+	<title></title>
+	<script src="http://a.tbcdn.cn/s/yui/3.3.0/build/yui/yui-min.js"></script>
+	<link rel="stylesheet" href="http://a.tbcdn.cn/apps/et/common/widgets/box/css/box.css">
+</head>
+<body>
+<script>
+	YUI().use('overlay',function(Y){
+		var foo = new Y.Overlay({
+			headerContent : 'header',
+			bodyContent : '<div style="height:2000px;background:#ccc;">I can see this if the content is higher than viewport\'s height without "centered:true"</div>',
+			footerContent : 'footer'
+		});
+		foo.render();
+	});
+</script>
+
+</body>
+</html>
